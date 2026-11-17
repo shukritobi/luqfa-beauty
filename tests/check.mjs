@@ -32,12 +32,12 @@ for(const p of products){
   if(media.endsWith('.png')) assert.equal(blob.subarray(0,8).toString('hex'),'89504e470d0a1a0a','invalid PNG: '+media);
   else assert.equal(blob.subarray(0,3).toString('hex'),'ffd8ff','invalid JPEG: '+media);
 }
-for(const match of html.matchAll(/src="(assets\\/official\\/[^"]+)"/g)){
-  const media=match[1].split('?')[0];
+for(const chunk of html.split('src="assets/official/').slice(1)){
+  const media='assets/official/'+chunk.split('"')[0].split('?')[0];
   assert.ok(fs.existsSync(new URL('../'+media,import.meta.url)),'broken static asset: '+media);
 }
 const appText=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
-assert.match(appText,/recoverImage\\(/,'image retry handler must be installed');
-assert.match(html,new RegExp('assets/official/complete\\\\.jpg\\\\?v='+release),'hero asset must be cache-busted');
+assert.ok(appText.includes('recoverImage('),'image retry handler must be installed');
+assert.ok(html.includes('assets/official/complete.jpg?v='+release),'hero asset must be cache-busted');
 
 console.log(`Static checks passed. ${products.length} product entries, no duplicate IDs, editorial hero, WhatsApp order, and no storefront redirects.`);

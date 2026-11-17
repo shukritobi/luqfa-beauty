@@ -15,7 +15,7 @@ export const products=[
 ];
 // Keep product photography on our own host; change release key when a browser may have cached a failed image request.
 export const imageOf=(product)=>{
-  const ext = /\\.png(?:\\?|$)/i.test(product.image) ? 'png' : 'jpg';
+  const ext = product.image.toLowerCase().endsWith('.png') ? 'png' : 'jpg';
   const local = window.LUQFA_ASSETS?.[product.id] || `assets/official/${product.id}.${ext}`;
   return `${local}?v=20261117qa2`;
 };
