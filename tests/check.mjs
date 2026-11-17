@@ -19,7 +19,7 @@ for(const p of products){assert.ok(p.name&&p.type&&p.price>0&&p.was>=p.price,p.n
 for(const filename of ['app.js','shopify.js','products.js','shopify-config.js','assets/asset-config.js','styles.css'])assert.ok(fs.existsSync(new URL('../'+filename,import.meta.url)),filename);
 
 /* Each referenced catalogue image must exist and be a real JPEG or PNG, not an HTML error response. */
-const release='20261117qa2';
+const release='20261117qa3';
 const vm=await import('node:vm');
 const sandbox={window:{}};
 vm.runInNewContext(fs.readFileSync(new URL('../assets/asset-config.js',import.meta.url),'utf8'),sandbox);
@@ -29,8 +29,12 @@ for(const p of products){
   const media=images[p.id];assert.ok(media?.startsWith('assets/official/'),'missing local media map for '+p.id);
   const blob=fs.readFileSync(new URL('../'+media,import.meta.url));
   assert.ok(blob.length>2000,'media unexpectedly small: '+media);
-  if(media.endsWith('.png')) assert.equal(blob.subarray(0,8).toString('hex'),'89504e470d0a1a0a','invalid PNG: '+media);
-  else assert.equal(blob.subarray(0,3).toString('hex'),'ffd8ff','invalid JPEG: '+media);
+  if(media.endsWith('.webp')) {
+    assert.equal(blob.subarray(0,4).toString('ascii'),'RIFF','invalid WebP header: '+media);
+    assert.equal(blob.subarray(8,12).toString('ascii'),'WEBP','invalid WebP signature: '+media);
+  } else if(media.endsWith('.png')) assert.equal(blob.subarray(0,8).toString('hex'),'89504e470d0a1a0a','invalid PNG: '+media);
+  else if(media.endsWith('.jpg')) assert.equal(blob.subarray(0,3).toString('hex'),'ffd8ff','invalid JPEG: '+media);
+  else assert.fail('unsupported image type: '+media);
 }
 for(const chunk of html.split('src="assets/official/').slice(1)){
   const media='assets/official/'+chunk.split('"')[0].split('?')[0];
@@ -38,6 +42,6 @@ for(const chunk of html.split('src="assets/official/').slice(1)){
 }
 const appText=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
 assert.ok(appText.includes('recoverImage('),'image retry handler must be installed');
-assert.ok(html.includes('assets/official/complete.jpg?v='+release),'hero asset must be cache-busted');
+assert.ok(html.includes('assets/official/complete.webp?v='+release),'hero asset must be cache-busted');
 
 console.log(`Static checks passed. ${products.length} product entries, no duplicate IDs, editorial hero, WhatsApp order, and no storefront redirects.`);

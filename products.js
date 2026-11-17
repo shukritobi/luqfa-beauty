@@ -15,8 +15,8 @@ export const products=[
 ];
 // Keep product photography on our own host; change release key when a browser may have cached a failed image request.
 export const imageOf=(product)=>{
-  const ext = product.image.toLowerCase().endsWith('.png') ? 'png' : 'jpg';
+  const ext = product.id === 'brand-founders' ? 'jpg' : 'webp';
   const local = window.LUQFA_ASSETS?.[product.id] || `assets/official/${product.id}.${ext}`;
-  return `${local}?v=20261117qa2`;
+  return `${local}?v=20261117qa3`;
 };
 export const money=(amount)=>new Intl.NumberFormat('en-MY',{style:'currency',currency:'MYR'}).format(amount);

@@ -1,4 +1,4 @@
-import {products,imageOf,money} from './products.js?v=20261117qa2';
+import {products,imageOf,money} from './products.js?v=20261117qa3';
 import {canCheckout,createCheckout} from './shopify.js';
 
 /* Recover from a cached 404 or a transient media request failure on GitHub Pages.
