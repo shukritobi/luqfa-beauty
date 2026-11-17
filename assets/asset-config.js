@@ -1,4 +1,4 @@
-// Local images sourced from official LUQFA Beauty.
+// Original LUQFA photography, served locally using the true image format.
 window.LUQFA_ASSETS = {
   "sunscreen": "assets/official/sunscreen.webp",
   "serum": "assets/official/serum.webp",
