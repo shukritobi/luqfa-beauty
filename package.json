@@ -1,0 +1,13 @@
+{
+  "name":"luqfa-beauty-editorial-concept",
+  "version":"1.0.0",
+  "private":true,
+  "type":"module",
+  "description":"Unofficial LUQFA Beauty premium editorial storefront concept with official product sources",
+  "scripts":{
+    "test":"node tests/check.mjs && node --check app.js && node --check products.js && node --check shopify.js",
+    "assets":"node scripts/download-assets.mjs",
+    "assets:list":"node scripts/download-assets.mjs --list",
+    "dev":"python3 -m http.server 8080"
+  }
+}
