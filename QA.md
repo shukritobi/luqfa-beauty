@@ -13,8 +13,16 @@
 - Unnecessary internal banner/disclaimer wording and links to the old webshop removed: PASS.
 - Reduced-motion CSS and no-script content fallback: REVIEWED.
 
-## External dependency not testable here
+## Live deployment verified
 
-The sandbox cannot download images from LUQFA's media host, and Chromium only has local document access. Therefore local screenshots show blank image placeholders and cannot validate the live product photos. The published site must be visually checked with real network access and the image importer should be run on a connected machine before production launch.
+- Live URL returned HTTP 200 with the updated product-led homepage and minimalist footer.
+- A remote, internet-connected browser confirmed all hero, product, laboratory and founder images load. The founder image is lazy-loaded, so it must be checked after its section enters the viewport.
+- The hero Next control switched to the next product in the published site.
+- No console JavaScript errors and no proposal/disclaimer wording or old-store hyperlinks were found in the published UI.
+- Mobile navigation open/close and responsive CSS were checked; local Chromium tests confirmed no horizontal overflow at 360 and 390 px.
+
+## Outstanding deployment dependencies
+
+The local sandbox cannot download the original media into the repository; the storefront currently fetches LUQFA's published photography at runtime. Run the provided importer on a network-connected machine and verify local asset copies with owner consent before migrating to the official domain.
 
 Shopify paid checkout, live inventory, promotions and customer account features cannot be tested until the business provides a Shopify store, all product/variant mappings and authorisation.
