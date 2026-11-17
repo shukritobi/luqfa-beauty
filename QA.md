@@ -1,8 +1,20 @@
-# QA summary, 17 November 2026
+# LUQFA storefront QA — 17 November 2026
 
-- `npm test` passed: entry points, syntax, 10 product catalogue entries, prices and official source URLs, unique HTML IDs, and Shopify connector files.
-- Browser interaction checks passed at **1440 x 900** and **390 x 844** with Chromium and injected static document: render 10 entries, switch to cleansing category (2 entries), add item to bag, update count, close drawer, recommend sunscreen for sun-care focus, expand and close mobile menu.
-- No browser JavaScript exceptions in the tested paths.
-- HTML document width matched both viewport widths, so no horizontal overflow was observed at those sizes.
-- Full visual test of remote images was **not possible** due to external network restrictions. The screenshots made during testing used blank remote-image frames and are deliberately not included in the website archive. Check the real product photos after assets are downloaded or during hosted review.
-- No production Shopify checkout or payments tested because store credentials and owner authorisation were not provided.
+## Automated tests completed
+
+- `npm test`: PASS, 10 product entries, unique IDs, links/no disclaimer guards, JavaScript syntax and required files.
+- Chromium JS and layout checks at **1440×900, 1024×768, 768×1024, 390×844, 360×740**: PASS. No horizontal overflow or runtime JavaScript exceptions in the tested interactions.
+- Product carousel: previous/next and direct pagination: PASS.
+- Product category filters, sorting and live search: PASS.
+- Product quick view and close: PASS.
+- Add to bag, increment, remove, count/subtotal: PASS.
+- WhatsApp enquiry: correct business HQ link, selected product and quantity in the encoded message: PASS.
+- Routine finder and mobile navigation: PASS.
+- Unnecessary internal banner/disclaimer wording and links to the old webshop removed: PASS.
+- Reduced-motion CSS and no-script content fallback: REVIEWED.
+
+## External dependency not testable here
+
+The sandbox cannot download images from LUQFA's media host, and Chromium only has local document access. Therefore local screenshots show blank image placeholders and cannot validate the live product photos. The published site must be visually checked with real network access and the image importer should be run on a connected machine before production launch.
+
+Shopify paid checkout, live inventory, promotions and customer account features cannot be tested until the business provides a Shopify store, all product/variant mappings and authorisation.

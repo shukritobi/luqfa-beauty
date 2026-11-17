@@ -1,5 +1,5 @@
-/* Hallmark v2.0.0 | original custom editorial commerce direction | intent: product-led beauty editorial | material: official LUQFA photos | audience: Malaysian skincare shoppers | signature: oversized serif beside original product photography | checked by local Chromium */
-/* Critique: Avoid repetitive cards, fake metrics, over-styled labels, empty lead capture, and decorative UI. All imagery attributed to official LUQFA website. */
+/* Hallmark v2.0.0 | editorial beauty storefront | real LUQFA product photography | animated product-stage hero | mobile-first commerce | real contact footer */
+/* Critique: No invented claims or offers, no prototype language, avoid static hero and redundant descriptions; accessible motion and real product photos. */
 :root {
   --paper:#fbf7f2; --paper-deep:#efe6df; --blush:#f1dce0; --pink:#eac8d1; --ink:#37272a; --wine:#542f3d; --muted:#76656a; --edge:#e5d9d3; --white:#fff; --quiet:#f6f0ed; --black:#1f191c;
   --font-sans:'DM Sans','Manrope',Arial,sans-serif; --font-display:'Playfair Display',Georgia,serif;
@@ -22,3 +22,137 @@ button,input,select{font:inherit}button,a{-webkit-tap-highlight-color:transparen
 @media(max-width:780px){.shell{width:calc(100% - 36px)}.top-strip{padding-inline:18px}.top-strip span{display:none}.top-strip a{margin:auto}.header-grid{min-height:66px;grid-template-columns:1fr 1fr 1fr;gap:8px}.menu-button{display:grid;justify-self:start}.navigation{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);padding:20px 26px 25px;flex-direction:column;align-items:start;border-top:1px solid var(--edge);box-shadow:var(--shadow)}.navigation.open{display:flex}.navigation a{font-size:16px;padding:8px 0}.brand span{font-size:27px}.brand small{font-size:8px;letter-spacing:3px}.header-tools{gap:5px}.bag-link{font-size:12px}.hero{display:flex;flex-direction:column}.hero-copy{padding:47px 28px 35px}.hero-copy-inner{width:100%}.hero-note{margin-bottom:17px}.hero h1{font-size:clamp(63px,11vw,98px);margin-bottom:18px}.hero-description{font-size:15px;max-width:390px}.hero-micro{margin-top:34px}.hero-visual{min-height:440px;aspect-ratio:1.18/1}.visual-caption{font-size:10px;padding:10px 15px}.principle-inner{font-size:11px;padding-block:14px}.principle-inner span:last-child{display:none}.collection{padding-block:76px 70px}.collection-heading{display:block}.collection-heading h2{font-size:68px;margin-bottom:20px}.collection-heading>p{margin-bottom:28px}.shop-controls{display:block}.filters{gap:19px;flex-wrap:nowrap;overflow:auto;padding-bottom:8px}.filters button{white-space:nowrap}.sort-label{margin-top:10px;justify-content:end}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.product-info{padding-top:12px}.product-info h3{font-size:13px;min-height:56px}.product-info del{display:block;margin:0}.product-image{aspect-ratio:4/4.7}.quick-view{display:none}.product-actions{gap:7px}.collection-footer{display:block}.collection-footer p{margin-bottom:12px}.feature{display:flex;flex-direction:column}.feature-visual{min-height:400px}.feature-copy{padding:55px 27px 65px;gap:20px}.feature h2{font-size:clamp(53px,9vw,76px)}.ritual{display:block;padding-block:82px}.ritual h2{font-size:65px}.ritual-widget{margin-top:38px}.founders{display:flex;flex-direction:column-reverse}.founder-visual{min-height:410px}.founder-copy{padding:62px 27px}.founders h2{font-size:57px}.academy{padding-block:84px;display:block}.academy h2{font-size:67px}.academy-copy{margin-top:30px}.footer-upper{display:block;padding:55px 0}.footer-brand{font-size:83px}.footer-links{gap:65px;margin-top:43px}.footer-bottom{display:block;font-size:11px}.footer-bottom span{display:block;margin-bottom:10px}.detail-layout{display:block}.detail-photo{min-height:300px;max-height:400px}.detail-copy{padding:24px 24px 35px}.detail-copy h2{font-size:36px}}
 @media(max-width:390px){.demo-note{font-size:9px}.hero h1{font-size:58px}.hero-visual{min-height:370px}.hero-cta{gap:14px}.hero .btn{padding:13px}.collection-heading h2,.ritual h2,.academy h2{font-size:56px}.filters{gap:12px}.product-grid{gap:12px}.product-actions{display:block}.product-actions a{display:block;padding-top:9px}.footer-links{gap:26px}.footer-brand{font-size:72px}.drawer{padding:16px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition-duration:0.01ms!important;animation-duration:0.01ms!important}}
+
+/* LUQFA storefront polish: product-led editorial motion, restrained navigation, and a complete business footer. */
+.top-strip{background:var(--blush);color:var(--wine);padding-block:8px;font-size:12px}
+.top-strip a{font-weight:500}
+.header-grid{min-height:82px}
+.navigation a{transition:opacity var(--speed) ease}
+.navigation a:hover{opacity:.65}
+.brand span{font-size:35px}
+.hero{min-height:650px;grid-template-columns:minmax(0,47%) minmax(0,53%)}
+.hero-copy{position:relative;background:var(--blush);padding:65px clamp(32px,7vw,110px)}
+.hero-copy-inner{position:relative;z-index:2}
+.hero h1{font-size:clamp(71px,6.8vw,112px);line-height:1.06;margin:0 0 27px;letter-spacing:-.075em;animation:hero-type-in 850ms cubic-bezier(.18,.8,.2,1) both}
+.hero-description{font-size:17px;line-height:1.5;margin:0 0 30px;animation:hero-type-in 950ms 100ms cubic-bezier(.18,.8,.2,1) both}
+.hero-cta{animation:hero-type-in 950ms 200ms cubic-bezier(.18,.8,.2,1) both}
+.hero-signature{display:none}
+.hero-visual{min-height:650px;isolation:isolate;background:var(--paper-deep)}
+.hero-watermark{position:absolute;left:50%;top:40%;transform:translate(-50%,-50%);z-index:0;font:400 clamp(340px,37vw,650px)/1 var(--font-display);letter-spacing:-.19em;color:var(--wine);opacity:.065;pointer-events:none;user-select:none}
+.hero-slides{position:absolute;inset:0 0 72px;isolation:isolate}
+.hero-slide{position:absolute;inset:0;display:grid;place-items:center;margin:0;padding:28px 46px 8px;opacity:0;visibility:hidden;transform:translateX(16px) scale(.985);transition:opacity 850ms ease,transform 850ms cubic-bezier(.22,.61,.36,1),visibility 850ms ease;pointer-events:none}
+.hero-slide.is-active{opacity:1;visibility:visible;transform:translateX(0) scale(1);pointer-events:auto;z-index:1}
+.hero-slide img{width:min(100%,620px);height:100%;object-fit:contain;object-position:center;mix-blend-mode:multiply;filter:saturate(.94);will-change:transform}
+.hero-slide.is-active img{animation:hero-product-drift 6.5s ease-in-out both}
+.hero-slide figcaption{position:absolute;bottom:8px;left:46px;font-size:12px;letter-spacing:.005em;color:var(--wine);font-weight:600}
+.hero-controls{position:absolute;left:0;right:0;bottom:0;height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 38px;z-index:5;border-top:1px solid var(--edge);background:var(--paper)}
+.hero-arrow{font-size:23px;line-height:1;width:44px;height:44px;background:transparent;border:0;color:var(--wine);transition:transform 180ms ease}
+.hero-arrow:hover{transform:translateY(-2px)}
+.hero-pagination{display:flex;gap:15px;align-items:center}
+.hero-dot{width:21px;height:21px;padding:0;border:0;background:transparent;position:relative;display:grid;place-items:center}
+.hero-dot::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--muted);transition:transform 230ms ease,background 230ms ease}
+.hero-dot.selected::after{background:var(--wine);transform:scale(1.7)}
+@keyframes hero-type-in{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}
+@keyframes hero-product-drift{0%{transform:translateY(12px) scale(.97)}45%{transform:translateY(-7px) scale(1)}100%{transform:translateY(0) scale(1.015)}}
+.collection{padding-block:100px 88px}
+.collection-heading{margin-bottom:34px}
+.collection-heading h2{font-size:clamp(58px,5.3vw,86px);line-height:1.05}
+.collection-heading>p{font-size:15px}
+.product-image{background:var(--quiet)}
+.product-card{transition:transform 260ms ease}
+.product-card:hover{transform:translateY(-3px)}
+.product-image img{filter:saturate(.97)}
+.product-actions{justify-content:flex-start}
+.product-actions .add-to-bag{font-size:13px}
+.product-info h3{min-height:0;margin-bottom:9px}
+.feature h2{font-size:clamp(61px,5.5vw,90px);line-height:1.08}
+.feature-copy p:not(.small-note){font-size:18px;line-height:1.5}
+.feature-visual img,.founder-visual img{transition:transform 1200ms cubic-bezier(.2,.7,.2,1)}
+.feature:hover .feature-visual img,.founders:hover .founder-visual img{transform:scale(1.025)}
+.ritual{padding-block:116px}
+.ritual-intro>p:last-child{font-size:17px}
+.ritual-widget{border-top-color:var(--wine)}
+.question{font-size:28px}
+.ritual-choices label{font-size:15px}
+.recommend-result{background:var(--paper-deep)}
+.founder-copy{gap:0}
+.founders h2{font-size:clamp(59px,5.8vw,93px);margin-bottom:22px}
+.founders p:not(.small-note){font-size:17px;margin-bottom:24px}
+.text-link.inverse{color:var(--paper)}
+.academy{padding-block:100px}
+.academy h2{font-size:clamp(58px,5.8vw,94px)}
+.academy-copy p{font-size:17px}
+.footer{background:var(--black);color:var(--paper)}
+.footer-upper{padding:88px 0 75px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:70px}
+.footer-brand{font:400 clamp(80px,9vw,136px)/.85 var(--font-display);letter-spacing:-.085em;display:inline-block}
+.footer-brand span{font:500 11px/1.2 var(--font-sans);letter-spacing:.4em;margin-top:18px;padding-left:8px}
+.footer-identity>p{margin:31px 0 0;font-size:15px;color:var(--pink)}
+.footer-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:30px;padding-top:7px}
+.footer-links>div{gap:12px}
+.footer-links span{font-size:13px;color:var(--pink);margin-bottom:12px}
+.footer-links a{font-size:15px;line-height:1.5}
+.footer-business{border-top:1px solid var(--muted);padding:27px 0;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:30px;color:var(--pink);font-size:13px}
+.footer-business span{font-size:14px;color:var(--paper);font-weight:600}
+.footer-business address{font-style:normal;line-height:1.75}
+.footer-bottom{border-top:1px solid var(--muted);padding:22px 0 34px;color:var(--pink);font-size:12px}
+.footer-bottom a{font-size:12px;text-decoration:none}
+.footer-bottom a:hover{text-decoration:underline}
+.cart-message{margin:10px 0 17px}
+.cart-bottom .btn{margin-top:5px}
+@keyframes quiet-entrance{from{opacity:.72;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.motion-ready [data-reveal]{opacity:1;transform:none}
+.motion-ready [data-reveal].visible{animation:quiet-entrance 750ms cubic-bezier(.2,.7,.2,1) both}
+@media(max-width:1100px){
+ .hero{grid-template-columns:minmax(0,48%) minmax(0,52%);min-height:580px}
+ .hero-copy{padding:52px 48px}
+ .hero h1{font-size:clamp(64px,7.2vw,88px)}
+ .hero-visual{min-height:580px}
+ .footer-brand{font-size:90px}
+}
+@media(max-width:780px){
+ .top-strip{padding:7px 14px;font-size:11px}
+ .top-strip span{display:block;font-size:11px}
+ .top-strip a{display:none}
+ .hero{display:flex;flex-direction:column;min-height:auto}
+ .hero-copy{min-height:340px;padding:46px 27px 38px;align-items:center}
+ .hero h1{font-size:clamp(59px,10vw,82px);margin-bottom:20px}
+ .hero-description{font-size:16px;margin-bottom:24px}
+ .hero-visual{height:390px;min-height:390px;aspect-ratio:auto}
+ .hero-slides{inset:0 0 58px}
+ .hero-slide{padding:12px 30px 9px}
+ .hero-slide figcaption{left:22px;bottom:3px;font-size:11px}
+ .hero-controls{height:58px;padding:0 24px}
+ .hero-watermark{font-size:340px}
+ .collection{padding-block:68px 58px}
+ .collection-heading h2{font-size:clamp(51px,10vw,70px);margin-bottom:16px}
+ .collection-heading>p{font-size:14px}
+ .feature h2{font-size:clamp(51px,9.5vw,72px)}
+ .founder-copy{padding:60px 27px}
+ .founders h2{font-size:clamp(51px,9.5vw,72px)}
+ .ritual{padding-block:80px}
+ .ritual h2{font-size:clamp(52px,10vw,73px)}
+ .academy{padding-block:76px}
+ .academy h2{font-size:clamp(53px,10vw,74px)}
+ .footer-upper{display:block;padding:66px 0 53px}
+ .footer-brand{font-size:86px}
+ .footer-links{margin-top:50px;gap:24px}
+ .footer-business{grid-template-columns:1fr;gap:11px}
+ .footer-bottom{display:flex;justify-content:space-between;gap:16px}
+ .footer-bottom span{display:block}
+}
+@media(max-width:390px){
+ .hero-copy{min-height:310px;padding:35px 24px 30px}
+ .hero h1{font-size:clamp(52px,13.4vw,59px)}
+ .hero-visual{height:340px;min-height:340px}
+ .hero-slide{padding-inline:22px}
+ .hero-watermark{font-size:290px}
+ .collection-heading h2{font-size:52px}
+ .footer-brand{font-size:74px}
+ .footer-links a{font-size:14px}
+ .footer-bottom{font-size:10px}
+}
+@media(prefers-reduced-motion:reduce){
+ .hero h1,.hero-description,.hero-cta,.hero-slide.is-active img{animation:none!important}
+ .hero-slide,.motion-ready [data-reveal]{transition:none!important;transform:none!important}
+ .motion-ready [data-reveal]{opacity:1}
+}
