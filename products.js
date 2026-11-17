@@ -13,5 +13,10 @@ export const products=[
   {id:'glow-set',handle:'glow-skin-set-3-in-1',name:'Glow Skin Set 3 in 1',category:'sets',type:'Skincare set',size:'3 products',price:89.90,was:105.00,image:base+'/media/catalog%2Fae48f536-b599-4713-9754-0ffefbe4c4d6%2Fae526929-5aef-407a-ba12-c8aefe07a580.jpg',description:'A ready-made combination for a more streamlined routine.',directions:'Select the right variation when ordering.',source:base+'/products/glow-skin-set-3-in-1'},
   {id:'blush',handle:'luqfa-cosmetic-blush-glow-palette-pemerah-pipi-pemakaian-tahan-lama',name:'Blush Glow Palette',category:'makeup',type:'Colour cosmetics',size:'Palette',price:48.70,was:64.90,image:base+'/media/catalog%2F46bd7a7b-3aa6-48a7-bce9-281490b9d2bb%2F0b59ad26-0ba1-4068-ac7c-db398ee77ba4.jpg',description:'A colour cosmetics offering from the LUQFA catalogue.',directions:'Confirm the available shades when ordering.',source:base+'/products/luqfa-cosmetic-blush-glow-palette-pemerah-pipi-pemakaian-tahan-lama'}
 ];
-export const imageOf=(product)=>window.LUQFA_ASSETS?.[product.id]||product.image;
+// Keep product photography on our own host; change release key when a browser may have cached a failed image request.
+export const imageOf=(product)=>{
+  const ext = /\\.png(?:\\?|$)/i.test(product.image) ? 'png' : 'jpg';
+  const local = window.LUQFA_ASSETS?.[product.id] || `assets/official/${product.id}.${ext}`;
+  return `${local}?v=20261117qa2`;
+};
 export const money=(amount)=>new Intl.NumberFormat('en-MY',{style:'currency',currency:'MYR'}).format(amount);

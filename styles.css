@@ -156,3 +156,11 @@ button,input,select{font:inherit}button,a{-webkit-tap-highlight-color:transparen
  .hero-slide,.motion-ready [data-reveal]{transition:none!important;transform:none!important}
  .motion-ready [data-reveal]{opacity:1}
 }
+/* Image resilience: loading errors remain branded rather than exposing browser broken-image icons. */
+.product-image.asset-unavailable::before,.hero-slide.asset-unavailable::before,.feature-visual.asset-unavailable::before,.founder-visual.asset-unavailable::before{
+  content:"LUQFA";position:absolute;inset:0;display:grid;place-items:center;
+  color:var(--wine);background:var(--quiet);font:500 32px var(--font-display);letter-spacing:-.04em;
+}
+.product-image img.image-unavailable,.hero-slide img.image-unavailable,
+.feature-visual img.image-unavailable,.founder-visual img.image-unavailable,
+.brand img.image-unavailable{visibility:hidden;}

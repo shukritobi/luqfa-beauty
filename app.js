@@ -1,5 +1,29 @@
-import {products,imageOf,money} from './products.js';
+import {products,imageOf,money} from './products.js?v=20261117qa2';
 import {canCheckout,createCheckout} from './shopify.js';
+
+/* Recover from a cached 404 or a transient media request failure on GitHub Pages.
+   Fail gracefully after two new-network retries rather than exposing broken-image icons. */
+function recoverImage(img){
+  if(!(img instanceof HTMLImageElement))return;
+  let src;try{src=new URL(img.src,location.href)}catch{return}
+  if(!src.pathname.includes('/assets/official/'))return;
+  const attempt=Number(img.dataset.retryAttempt||0);
+  if(attempt>=2){
+    img.classList.add('image-unavailable');
+    img.parentElement?.classList.add('asset-unavailable');
+    return;
+  }
+  img.dataset.retryAttempt=String(attempt+1);
+  img.loading='eager';
+  src.searchParams.set('attempt',String(attempt+1));
+  src.searchParams.set('refresh',String(Date.now()));
+  window.setTimeout(()=>{if(img.isConnected)img.src=src.toString()},attempt*300);
+}
+document.addEventListener('error',event=>recoverImage(event.target),true);
+queueMicrotask(()=>document.querySelectorAll('img').forEach(img=>{
+  if(img.complete&&img.naturalWidth===0)recoverImage(img);
+}));
+
 const $=(id)=>document.getElementById(id);
 let filter='all',order='featured',term='',cart=[];
 const businessWhatsApp='60123464283';
@@ -7,11 +31,11 @@ const stored=()=>{try{return JSON.parse(localStorage.getItem('luqfa-bag-v2')||'[
 cart=stored().filter(x=>products.some(p=>p.id===x.id)&&Number.isInteger(x.quantity)&&x.quantity>0&&x.quantity<100);
 const save=()=>{try{localStorage.setItem('luqfa-bag-v2',JSON.stringify(cart))}catch{}};
 function safe(str){return String(str).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function card(product){return `<article class="product-card" data-id="${product.id}"><div class="product-image" role="group" aria-label="${safe(product.name)}">${product.tag?`<span class="product-tag">${safe(product.tag)}</span>`:''}<img src="${imageOf(product)}" alt="${safe(product.name)} by LUQFA Beauty" loading="lazy"><button class="quick-view" type="button" data-detail="${product.id}">View product</button></div><div class="product-info"><p class="category">${safe(product.type)} / ${safe(product.size)}</p><h3><button type="button" data-detail="${product.id}">${safe(product.name)}</button></h3><div class="price">${money(product.price)} <del>${money(product.was)}</del></div><div class="product-actions"><button type="button" class="add-to-bag" data-add="${product.id}">Add to bag <span aria-hidden="true">+</span></button></div></div></article>`}
+function card(product){return `<article class="product-card" data-id="${product.id}"><div class="product-image" role="group" aria-label="${safe(product.name)}">${product.tag?`<span class="product-tag">${safe(product.tag)}</span>`:''}<img src="${imageOf(product)}" alt="${safe(product.name)} by LUQFA Beauty" loading="eager" decoding="async"><button class="quick-view" type="button" data-detail="${product.id}">View product</button></div><div class="product-info"><p class="category">${safe(product.type)} / ${safe(product.size)}</p><h3><button type="button" data-detail="${product.id}">${safe(product.name)}</button></h3><div class="price">${money(product.price)} <del>${money(product.was)}</del></div><div class="product-actions"><button type="button" class="add-to-bag" data-add="${product.id}">Add to bag <span aria-hidden="true">+</span></button></div></div></article>`}
 function render(){let shown=products.filter(p=>(filter==='all'||p.category===filter)&&(p.name+' '+p.type+' '+p.description).toLowerCase().includes(term.toLowerCase()));if(order==='price-asc')shown.sort((a,b)=>a.price-b.price);if(order==='price-desc')shown.sort((a,b)=>b.price-a.price);if(order==='name')shown.sort((a,b)=>a.name.localeCompare(b.name));$('productGrid').innerHTML=shown.length?shown.map(card).join(''):'<p class="empty-results">Nothing quite matches. Try another category or search.</p>'}
 function setFilter(value){filter=value;document.querySelectorAll('[data-filter]').forEach(btn=>{const active=btn.dataset.filter===value;btn.classList.toggle('selected',active);btn.setAttribute('aria-pressed',String(active))});render()}
 function add(id){const existing=cart.find(x=>x.id===id);if(existing)existing.quantity=Math.min(99,existing.quantity+1);else cart.push({id,quantity:1});save();renderCart();openBag()}
-function renderCart(){let count=0,total=0;$('cartItems').innerHTML=cart.length?cart.map(item=>{const p=products.find(p=>p.id===item.id);if(!p)return '';count+=item.quantity;total+=item.quantity*p.price;return `<div class="cart-row"><img src="${imageOf(p)}" alt="" loading="lazy"><div><h3>${safe(p.name)}</h3><p>${money(p.price)}</p><div class="qty-controls"><button type="button" data-change="${p.id}" data-delta="-1" aria-label="Remove one ${safe(p.name)}">−</button><span>${item.quantity}</span><button type="button" data-change="${p.id}" data-delta="1" aria-label="Add one ${safe(p.name)}">+</button><button class="remove" type="button" data-remove="${p.id}">Remove</button></div></div></div>`}).join(''):'<p class="cart-empty">Your bag is empty.</p>';$('bagCount').textContent=`(${count})`;$('cartQuantity').textContent=`(${count})`;$('cartSubtotal').textContent=money(total);$('checkoutButton').disabled=!cart.length;$('checkoutButton').firstChild.textContent=canCheckout()?'Secure checkout ':'Order via WhatsApp ';$('cartMessage').textContent=canCheckout()?'Shipping and final total at checkout.':'Price and availability confirmed on WhatsApp.'}
+function renderCart(){let count=0,total=0;$('cartItems').innerHTML=cart.length?cart.map(item=>{const p=products.find(p=>p.id===item.id);if(!p)return '';count+=item.quantity;total+=item.quantity*p.price;return `<div class="cart-row"><img src="${imageOf(p)}" alt="" loading="eager" decoding="async"><div><h3>${safe(p.name)}</h3><p>${money(p.price)}</p><div class="qty-controls"><button type="button" data-change="${p.id}" data-delta="-1" aria-label="Remove one ${safe(p.name)}">−</button><span>${item.quantity}</span><button type="button" data-change="${p.id}" data-delta="1" aria-label="Add one ${safe(p.name)}">+</button><button class="remove" type="button" data-remove="${p.id}">Remove</button></div></div></div>`}).join(''):'<p class="cart-empty">Your bag is empty.</p>';$('bagCount').textContent=`(${count})`;$('cartQuantity').textContent=`(${count})`;$('cartSubtotal').textContent=money(total);$('checkoutButton').disabled=!cart.length;$('checkoutButton').firstChild.textContent=canCheckout()?'Secure checkout ':'Order via WhatsApp ';$('cartMessage').textContent=canCheckout()?'Shipping and final total at checkout.':'Price and availability confirmed on WhatsApp.'}
 let oldFocus=null;
 function openBag(){oldFocus=document.activeElement;$('veil').hidden=false;$('drawer').hidden=false;document.body.style.overflow='hidden';$('bagClose').focus()}
 function closeBag(){$('veil').hidden=true;$('drawer').hidden=true;document.body.style.overflow='';oldFocus?.focus?.()}

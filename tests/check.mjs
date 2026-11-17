@@ -17,4 +17,27 @@ assert.match(css,/overflow-x:clip/);assert.ok(!css.includes('transition: all'));
 assert.equal(new Set(products.map(p=>p.id)).size,products.length,'duplicate product id');
 for(const p of products){assert.ok(p.name&&p.type&&p.price>0&&p.was>=p.price,p.name);assert.ok(p.source.startsWith('https://luqfabeautyofficial.com/products/'));assert.ok(p.image.startsWith('https://luqfabeautyofficial.com/media/'));}
 for(const filename of ['app.js','shopify.js','products.js','shopify-config.js','assets/asset-config.js','styles.css'])assert.ok(fs.existsSync(new URL('../'+filename,import.meta.url)),filename);
+
+/* Each referenced catalogue image must exist and be a real JPEG or PNG, not an HTML error response. */
+const release='20261117qa2';
+const vm=await import('node:vm');
+const sandbox={window:{}};
+vm.runInNewContext(fs.readFileSync(new URL('../assets/asset-config.js',import.meta.url),'utf8'),sandbox);
+const images=sandbox.window.LUQFA_ASSETS;
+assert.ok(images && Object.keys(images).length>=products.length,'product media mapping is missing');
+for(const p of products){
+  const media=images[p.id];assert.ok(media?.startsWith('assets/official/'),'missing local media map for '+p.id);
+  const blob=fs.readFileSync(new URL('../'+media,import.meta.url));
+  assert.ok(blob.length>2000,'media unexpectedly small: '+media);
+  if(media.endsWith('.png')) assert.equal(blob.subarray(0,8).toString('hex'),'89504e470d0a1a0a','invalid PNG: '+media);
+  else assert.equal(blob.subarray(0,3).toString('hex'),'ffd8ff','invalid JPEG: '+media);
+}
+for(const match of html.matchAll(/src="(assets\\/official\\/[^"]+)"/g)){
+  const media=match[1].split('?')[0];
+  assert.ok(fs.existsSync(new URL('../'+media,import.meta.url)),'broken static asset: '+media);
+}
+const appText=fs.readFileSync(new URL('../app.js',import.meta.url),'utf8');
+assert.match(appText,/recoverImage\\(/,'image retry handler must be installed');
+assert.match(html,new RegExp('assets/official/complete\\\\.jpg\\\\?v='+release),'hero asset must be cache-busted');
+
 console.log(`Static checks passed. ${products.length} product entries, no duplicate IDs, editorial hero, WhatsApp order, and no storefront redirects.`);
