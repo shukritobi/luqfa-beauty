@@ -30,6 +30,8 @@ for(const {id,url} of inventory){
     if(length<100){
       const response=await fetch(url,{signal:AbortSignal.timeout(14000),headers:{'user-agent':'Mozilla/5.0 (compatible; BrandProposal/1.0)'}});
       if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      const contentType=response.headers.get('content-type')||'';
+      if(!contentType.startsWith('image/'))throw new Error(`Unexpected content type: ${contentType}`);
       const buffer=Buffer.from(await response.arrayBuffer());
       if(buffer.length<500)throw new Error('unexpectedly small response');
       await fs.writeFile(local,buffer);
@@ -42,3 +44,4 @@ for(const {id,url} of inventory){
 await fs.writeFile(path.join(root,'assets','asset-config.js'),`// Local images sourced from official LUQFA Beauty.\nwindow.LUQFA_ASSETS = ${JSON.stringify(map,null,2)};\n`);
 await fs.writeFile(path.join(root,'index.html'),index);
 console.log(`${successes} files available locally; ${failures} remained linked to original URL.`);
+if(failures && process.argv.includes('--strict'))process.exitCode=1;

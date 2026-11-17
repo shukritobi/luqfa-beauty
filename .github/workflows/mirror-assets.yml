@@ -1,0 +1,33 @@
+name: Mirror approved LUQFA media
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/mirror-assets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Download brand and product photographs
+        run: npm run assets -- --strict
+      - name: Run storefront checks
+        run: npm test
+      - name: Save local media references
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html assets/asset-config.js assets/official/
+          if ! git diff --cached --quiet; then
+            git commit -m 'Mirror LUQFA catalogue photography into site assets'
+            git push
+          fi
