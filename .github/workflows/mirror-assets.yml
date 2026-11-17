@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/mirror-assets.yml'
+      - 'tests/check.mjs'
+      - 'scripts/download-assets.mjs'
 
 permissions:
   contents: write
